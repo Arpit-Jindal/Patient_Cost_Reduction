@@ -1,76 +1,174 @@
-<div>
-    <app-widget-area [data]="bigChart"></app-widget-area>
+<div
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+  fxLayoutGap="20px"
+  class="stats-cards"
+  *ngIf="patient_data"
+>
+  <mat-card fxFlex="25">
+    <h4>Patient Details</h4>
+    <p>Name: {{ patient_data.Name }}</p>
+    <p>Age: {{ patient_data.Age }} Years</p>
+    <p>Sex: {{ patient_data.Sex }}</p>
+  </mat-card>
+  <mat-card fxFlex="25">
+    <h4>Average Health Stats</h4>
+    <p>Calculated over 20 days</p>
+    <p>Heart Rate: {{ patient_data.Heart_Rate }} bpm</p>
+    <p>Blood Pressure: {{ patient_data.Blood_Pressure }}</p>
+  </mat-card>
+  <mat-card fxFlex="25">
+    <h4>Risk Percentage</h4>
+    <p>{{ patient_data.Risk }}%</p>
+    <h4>Predicted Insurance Amount</h4>
+    <p>USD {{ patient_data.Insurance }}</p>
+  </mat-card>
+  <mat-card fxFlex="25">
+    <h4>Actual Medicine Cost</h4>
+    <p>USD {{ patient_data.Medicine_Cost }}</p>
+    <h4>Reduced Amount Percentage</h4>
+    <p>{{ patient_data.Reduce_amount }} %</p>
+  </mat-card>
 </div>
-
-<br>
-
+<br />
+<br />
+<mat-card>
+  <h4>Current Conditions</h4>
+  <div class="simple-tags">
+    <ul>
+      <li
+        style="background-color: #f0b27a"
+        *ngFor="let condition of patient_data.Current_Conditions"
+      >
+        {{ condition }}
+      </li>
+    </ul>
+  </div>
+  <h4>Allergies</h4>
+  <div class="simple-tags">
+    <ul>
+      <li
+        style="background-color: #f4d03f"
+        *ngFor="let allergy of patient_data.Allergies"
+      >
+        {{ allergy }}
+      </li>
+    </ul>
+  </div>
+</mat-card>
+<br />
+<br />
 <mat-divider></mat-divider>
+<mat-card>
+  <h4>Current Medications</h4>
+  <div class="simple-tags">
+    <ul>
+      <li *ngFor="let medication of patient_data.Current_Medications">
+        {{ medication }}
+      </li>
+    </ul>
+  </div>
+</mat-card>
 
-<br>
+<br />
+<br />
 
-<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
-    <mat-card fxFlex="25">
-        <app-widget-card label="New Users" total="12k" percentage="50" [data]="cards"></app-widget-card>
-    </mat-card>
-    <mat-card fxFlex="25">
-        <app-widget-card label="Users retention" total="10k" percentage="40" [data]="cards"></app-widget-card>
-    </mat-card>
-    <mat-card fxFlex="25">
-        <app-widget-card label="Users engagement" total="8k" percentage="30" [data]="cards"></app-widget-card>
-    </mat-card>
-    <mat-card fxFlex="25">
-        <app-widget-card label="Referral" total="6k" percentage="20" [data]="cards"></app-widget-card>
-    </mat-card>
-</div>
+<mat-card>
+  <h4>Suggestions</h4>
+  <div>
+    <ul>
+      <li *ngFor="let disease of patient_data.Suggestions | keyvalue">
+        {{ disease.key }}
 
-<br>
-
-<mat-divider></mat-divider>
-
-<br>
-
-<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
-    <div fxFlex="60">
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource">
-
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                    <th mat-header-cell *matHeaderCellDef> No. </th>
-                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
-
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                    <th mat-header-cell *matHeaderCellDef> Weight </th>
-                    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="symbol">
-                    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        <div class="simple-tags">
+          <ul>
+            <li
+              style="background-color: #9aa1aa"
+              *ngFor="let medicine of disease.value"
+            >
+              {{ medicine }}
+            </li>
+          </ul>
         </div>
+      </li>
+    </ul>
+  </div>
+</mat-card>
 
-    </div>
-    <div fxFlex="40">
-        <app-widget-pie [data]="pieChart"></app-widget-pie>
-    </div>
+<br />
+<br />
+<mat-card>
+  <h4>Careplan</h4>
+  <div class="simple-tags">
+    <ul>
+      <li
+        style="background-color: #34495e"
+        *ngFor="let careplan of patient_data.Care_plan"
+      >
+        {{ careplan }}
+      </li>
+    </ul>
+  </div>
+</mat-card>
+
+<br />
+<br />
+
+<mat-divider></mat-divider>
+
+<br />
+<br />
+
+<!-- <div>
+  <app-widget-area [data]="bigChart"></app-widget-area>
 </div>
 
-<br>
-<br>
-<br>
+<br />
+
+<mat-divider></mat-divider>
+
+<br />
+<br />
+
+<mat-divider></mat-divider> -->
+
+<!-- 
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  <div fxFlex="60">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource"> -->
+<!-- Position Column -->
+<!-- <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+        </ng-container> -->
+
+<!-- Name Column -->
+<!-- <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container> -->
+
+<!-- Weight Column -->
+<!-- <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef>Weight</th>
+          <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+        </ng-container> -->
+
+<!-- Symbol Column -->
+<!-- <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef>Symbol</th>
+          <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+        </ng-container> -->
+<!-- 
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+    </div>
+  </div>
+  <div fxFlex="40">
+    <app-widget-pie [data]="pieChart"></app-widget-pie>
+  </div>
+</div> -->

@@ -1,0 +1,53 @@
+{
+  "Name": "Rene Schinner",
+  "Sex": "Female",
+  "Age": 59,
+  "Blood_Pressure": "80.3125/121.75",
+  "Insurance": 228013.09137242977,
+  "Risk": 47.135240680233515,
+  "Heart_Rate": 78.625,
+  "Medicine_Cost": 3605.43,
+  "Current_Medications": [
+    "24 HR Metformin hydrochloride 500 MG Extended Release Oral Tablet",
+    "insulin human isophane 70 UNT/ML / Regular Insulin Human 30 UNT/ML Injectable Suspension [Humulin]",
+    "Naproxen sodium 220 MG Oral Tablet",
+    "Amoxicillin 250 MG / Clavulanate 125 MG Oral Tablet"
+  ],
+  "Current_Conditions": [
+    "Diabetes",
+    "Anemia (disorder)",
+    "Hypertriglyceridemia (disorder)",
+    "Metabolic syndrome X (disorder)",
+    "Neuropathy due to type 2 diabetes mellitus (disorder)",
+    "Hyperglycemia (disorder)",
+    "Prediabetes",
+    "Chronic kidney disease stage 1 (disorder)",
+    "Diabetic renal disease (disorder)",
+    "Chronic pain",
+    "Osteoarthritis of knee",
+    "Viral sinusitis (disorder)",
+    "Acute viral pharyngitis (disorder)"
+  ],
+  "Suggestions": {
+    "Diabetes": [
+      "24 HR Metformin hydrochloride 500 MG Extended Release Oral Tablet",
+      "insulin human isophane 70 UNT/ML / Regular Insulin Human 30 UNT/ML Injectable Suspension [Humulin]",
+      "Insulin Lispro 100 UNT/ML Injectable Solution [Humalog]"
+    ],
+    "Anemia (disorder)": ["1 ML Epoetin Alfa 4000 UNT/ML Injection [Epogen]"],
+    "Osteoarthritis of knee": ["Naproxen sodium 220 MG Oral Tablet"],
+    "Viral sinusitis (disorder)": [
+      "Amoxicillin 250 MG / Clavulanate 125 MG Oral Tablet"
+    ],
+    "Acute viral pharyngitis (disorder)": [
+      "Penicillin V Potassium 250 MG Oral Tablet"
+    ]
+  },
+  "Reduce_amount": 2.63,
+  "Allergies": [],
+  "Care_plan": [
+    "Diabetes self management plan",
+    "Diabetes self management plan",
+    "Musculoskeletal care"
+  ]
+}

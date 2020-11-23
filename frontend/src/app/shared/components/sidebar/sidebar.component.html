@@ -1,32 +1,36 @@
 <mat-nav-list>
-    <div class="profile-card">
-        <div class="header">
-            <h2>Soufiane FADIL</h2>
-            <h4>example@email.com</h4>
-        </div>
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+  <div class="profile-card">
+    <div class="header">
+      <h2>Soufiane FADIL</h2>
+      <h4>example@email.com</h4>
     </div>
+    <img
+      src="https://img.collegedekhocdn.com/media/img/careers/doctor-clinic.jpg"
+      alt="Doctor"
+    />
+  </div>
 
-    <mat-divider></mat-divider>
+  <mat-divider></mat-divider>
 
-    <h2 matSubheader>Patients</h2>
+  <h2 matSubheader>Patients</h2>
 
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">#123</a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">#124</a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">#125</a>
+  <a
+    mat-list-item
+    routerLinkActive="list-item-active"
+    class="patient_id"
+    *ngFor="let id of patient_list"
+    [routerLink]="['/patient/', id]"
+    >#{{ id }}</a
+  >
+  <mat-divider></mat-divider>
 
-    <mat-divider></mat-divider>
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/stats">
+    <mat-icon>import_contacts</mat-icon>
+    Statistics
+  </a>
 
-    <h2 matSubheader>Tools</h2>
-
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts">
-        <mat-icon>import_contacts</mat-icon>
-        Statistics
-    </a>
-
-    <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
+  <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
         <mat-icon>contact_phone</mat-icon>
         Leads
     </a> -->
-
 </mat-nav-list>
