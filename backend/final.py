@@ -1,9 +1,12 @@
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import random
 import matplotlib.pyplot as plt
+
+
 
 monitor=pd.read_csv('out1.csv')
 med_db=pd.read_csv('medications.csv')
@@ -148,7 +151,7 @@ def med_count(X):
             continue
         c=np.array(record['TOTALCOST'])
         cost+=c[0]
-    if(cost==0 and len(un) is not 0):
+    if(cost==0 and len(un) != 0):
         cost=145.23
     return [un,cost]
 def condition_count(X):
@@ -168,7 +171,7 @@ def get_medicines(conditions,medicines):
             suggestions[condition].append(r)
     reduce=0
     random.seed(l+2)
-    if(l is not 0):
+    if(l != 0):
         reduce= random.randrange(1,10)
         reduce=float(reduce)
         h=(random.randint(1,100))/100
@@ -267,7 +270,8 @@ def calculate_risk(sex,age_val,cig,choles,sysB,gl,bmi,cond):
     s=const+sex_male*sex+age*age_val+cigsPerDay*cig+totChol*choles+sysBP*sysB+glucose*gl+bmi_coeff*bmi+past_disease*cond
     e=np.exp(s)
     return (e/(1+e))*100
-    
+
+
 
 def final_output(p_id):
     X=monitor[monitor['PATIENT'] == p_id]
@@ -278,18 +282,22 @@ def final_output(p_id):
     d=sex(Y)
     e=gluc(X)
     f=chol_st(X)
-    g=sys_st(X)
+    g=int(sys_st(X))
     h=0
     [i,cost]=med_count(medicines[p_id])
+    cost = round(cost,2)
     j=condition_count(conditions[p_id])
-    l=dias_st(X)
+    l=int(dias_st(X))
     m=heart_rate(X)
+    m=round(m,0)
     name=getname(Y)
     c_p=careplan(j)
-    if(c is not 0):
+    if(c != 0):
         h=random.randint(1,20)
     insurance=calculate_insurance(a,b,c,len(i),len(j))
+    insurance=round(insurance,2)
     r=calculate_risk(d,a,h,f,g,e,b,len(j))
+    r=round(r,2)
     [suggestions,reduce]=get_medicines(j,i)
     out={}
     z="Female"
@@ -299,20 +307,41 @@ def final_output(p_id):
     for al in allergies[p_id]:
         if(al!='AL_DESCRIPTION'):
             AL.append(al)
+    if(r<10):
+        insurance=40000+(random.randint(1,100)/100)
+    if(r>90):
+        insurance+=250000
+    reduce_cost=cost-(reduce*cost)/100
     out["Name"]=name
     out["Sex"]=z
     out["Age"]=a
-    out["Blood_Pressure"]=str(l)+'/'+str(g)
+    out["Blood_Pressure"]=str(g)+'/'+str(l)
     out["Insurance"]=insurance
     out["Risk"]=r
     out["Heart_Rate"]=m
     out["Medicine_Cost"]=cost
     out["Current_Medications"]=i
     out["Current_Conditions"]=j
+    out["Predicted_Medicine_Cost"]=reduce_cost
     out["Suggestions"]=suggestions
     out["Reduce_amount"]=reduce
     out["Allergies"]=AL
     out["Care_plan"]=c_p
     return out
 
-    
+
+
+
+# p_id='5b891358-1bb3-4bbf-b8a6-a73fbe58efe7'
+
+
+
+# print(ids.sample())
+# hr=monitor[monitor['PATIENT']==p_id]['HEART RATE']
+# sys=monitor[monitor['PATIENT']==p_id]['SYSTOLIC']
+# dias=monitor[monitor['PATIENT']==p_id]['DIASTOLIC']
+# chol=monitor[monitor['PATIENT']==p_id]['CHOLESTROL']
+# gl=monitor[monitor['PATIENT']==p_id]['GLUSCOE']
+# bm=monitor[monitor['PATIENT']==p_id]['BMI']
+
+
