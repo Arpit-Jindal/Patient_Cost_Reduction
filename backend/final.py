@@ -312,6 +312,7 @@ def final_output(p_id):
     if(r>90):
         insurance+=250000
     reduce_cost=cost-(reduce*cost)/100
+    reduce_cost = round(reduce_cost,2)
     out["Name"]=name
     out["Sex"]=z
     out["Age"]=a
