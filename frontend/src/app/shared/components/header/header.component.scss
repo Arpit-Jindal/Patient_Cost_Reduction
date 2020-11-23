@@ -1,3 +1,12 @@
 ul li {
   list-style: none;
 }
+#app-heading {
+  padding-top: 3px;
+  font-size: 14pt;
+}
+
+.container,
+mat-toolbar-row {
+  height: 45px;
+}
