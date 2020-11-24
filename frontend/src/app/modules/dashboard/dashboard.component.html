@@ -1,41 +1,104 @@
-<div
-  fxLayout="row"
-  fxLayoutAlign="space-between center"
-  fxLayoutGap="20px"
-  class="stats-cards"
-  *ngIf="patient_data"
->
-  <mat-card fxFlex="25">
-    <h4>Patient Details</h4>
-    <p>Name: {{ patient_data.Name }}</p>
-    <p>Age: {{ patient_data.Age }} Years</p>
-    <p>Sex: {{ patient_data.Sex }}</p>
-  </mat-card>
-  <mat-card fxFlex="25">
-    <h4>Average Health Stats</h4>
-    <p>Calculated over 20 days</p>
-    <p>Heart Rate: {{ patient_data.Heart_Rate }} bpm</p>
-    <p>Blood Pressure: {{ patient_data.Blood_Pressure }}</p>
-  </mat-card>
-  <mat-card fxFlex="25">
-    <h4>Risk Percentage</h4>
-    <p>{{ patient_data.Risk }}%</p>
-    <h4>Predicted Insurance Amount</h4>
-    <p>USD {{ patient_data.Insurance }}</p>
-  </mat-card>
-  <mat-card fxFlex="25">
-    <h4>Actual Medicine Cost</h4>
-    <p>USD {{ patient_data.Medicine_Cost }}</p>
-    <h4>Predicted Medicine Cost</h4>
-    <p>USD {{ patient_data.Predicted_Medicine_Cost }}</p>
-    <h4>Reduced Amount Percentage</h4>
-    <p>{{ patient_data.Reduce_amount }} %</p>
-  </mat-card>
-</div>
+
+  <div >
+    <div class="ch3">Patient ID : {{ patient_id }}</div>
+    <div fxLayout="row" fxLayoutAlign=" end" >
+      <div class="ch1">{{ patient_data.Name }}</div>
+      <div class="ch2">{{patient_data.Sex}} , {{ patient_data.Age }} years old.</div>
+    </div>
+  </div>
+
 
 <br />
 <mat-divider></mat-divider>
 <br />
+
+  <div class="intro" fxLayout="row"
+  fxLayoutAlign="left center" fxLayoutGap="50px">
+    <div>
+        <circle-progress
+        [percent]="patient_data.Risk"
+        [radius]="100"
+        [outerStrokeWidth]="15"
+        [innerStrokeWidth]="10"
+        [outerStrokeColor]="'#2B5878'"
+        [innerStrokeColor]="'#484476'"
+        [animation]="true"
+        [animationDuration]="250"
+        [unitsFontSize] = "40"
+        [titleFontSize] = "40"
+        [subtitleFontSize] = "35"
+        [subtitle] = "'RISK'"
+        [animateSubtitle] = true
+
+      ></circle-progress>
+    </div>
+
+      <div class="content">
+          <div class="block x1" fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div class="amount">${{ patient_data.Insurance }}</div>
+            <p>Predicted Insurance Amount</p>
+          </div>
+          <div class="block x2" fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="innerPrice" fxLayout="column" fxLayoutAlign="space-evenly center" >
+                <div class="amount">${{ patient_data.Medicine_Cost }}</div>
+                <p>Actual Medicine Cost</p>
+              </div>
+              <p> ---> </p>
+              <div class="innerPrice" fxLayout="column" fxLayoutAlign="space-evenly center" >
+                <div class="amount">${{ patient_data.Predicted_Medicine_Cost }}</div>
+                <p>Predicted Medicine Cost</p>
+              </div>
+            </div>
+            
+            <div class="tagline" fxLayoutAlign="center">
+              <p>Medicine Cost reduced by <b>{{patient_data.Reduce_amount}}%</b></p>
+            </div>
+
+          </div>
+     </div>
+  </div>
+
+ 
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+      <app-widget-area [data]="{
+        plots: patient_data.Heart_Plot,
+        name: 'Heart Rate'
+      }"></app-widget-area>
+      
+      <app-widget-area [data]="{
+        plots: patient_data.Diastolic_Plot,
+        name: 'Blood Pressure (Diastolic)'
+      }"></app-widget-area>
+      <app-widget-area [data]="{
+        plots: patient_data.Systolic_Plot,
+        name: 'Blood Pressure (Systolic)'
+      }"></app-widget-area>
+
+      <app-widget-area [data]="{
+        plots: patient_data.Glucose_Plot,
+        name: 'Glucose Level'
+      }"></app-widget-area>
+      <app-widget-area [data]="{
+        plots: patient_data.Cholestrol_Plot,
+        name: 'Cholestrol Level'
+      }"></app-widget-area>
+           
+      <app-widget-area [data]="{
+        plots: patient_data.BMI_Plot,
+        name: 'Body Mass Index'
+      }"></app-widget-area>
+
+    
+      
+  </div>
+
+
+<br />
+<mat-divider></mat-divider>
+<br />
+
 <mat-card>
   <h4>Current Conditions</h4>
   <div class="simple-tags">
@@ -94,9 +157,11 @@
     </ul>
   </div>
 </mat-card>
+
 <br />
 <mat-divider></mat-divider>
 <br />
+
 <mat-card>
   <h4>Careplan</h4>
   <div class="simple-tags">

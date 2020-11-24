@@ -1,3 +1,40 @@
+.intro{
+  margin:25px;
+  padding:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.ch1 {
+  color: #343434;
+  margin:10px;
+  margin-bottom: 0;
+	font-weight: normal;
+	font-size: 45px;
+	font-family: 'Orienta', sans-serif;
+}
+.ch2{
+  margin-left: 20px;
+  margin-bottom: 5px;
+	color: #343434;
+	font-size: 22px;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-family: 'Orienta', sans-serif;
+	letter-spacing: 1px;
+	font-style: italic;
+}
+
+.ch3{
+  margin-left: 10px;
+	color: #343434;
+	font-size: 18px;
+	font-weight: normal;
+	font-family: 'Orienta', sans-serif;
+}
+
 .stats-cards {
   .mat-card {
     overflow: hidden;
@@ -25,4 +62,87 @@
   color: #fff;
   background-color: #f1948a;
   border-radius: 5px;
+}
+
+
+
+.content{
+  height: 250px;
+  width: 80%;
+  display:flex;
+}
+
+
+.x1{
+  width:30%;
+  display: flex;
+  margin:15px;
+  padding:15px;
+  background-image: linear-gradient( 112.1deg,  rgba(32,38,57,1) 11.4%, rgba(63,76,119,1) 70.2% );
+}
+
+.x2{
+  width:60%;
+  margin:15px;
+  padding:15px;background-image: linear-gradient( 112.1deg,  rgba(32,38,57,1) 11.4%, rgba(63,76,119,1) 70.2% );
+  
+}
+
+.block{
+  -webkit-animation:scaledown 500 linear;
+  -moz-animation:scaledown 500 linear;
+  animation:scaledown 500 linear;
+  transform-origin:50% 50%;
+  animation-fill-mode: forwards;
+  padding: 25px;
+  .amount{
+    font-size: 48px;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #FFF;
+  }
+  p{
+    color: #FFF;
+    font-size: 18px;
+  }
+ 
+}
+
+.tagline{
+  p{
+    font-size: 25px;
+  }
+  
+}
+.block:hover{
+   z-index:50;
+   background-color: black;
+  -webkit-animation:scale 500 linear;
+  -moz-animation:scale 500 linear;
+  animation:scale 500 linear;
+  transform-origin:50% 50%;
+  animation-fill-mode: forwards;
+}
+
+
+
+@keyframes scale{
+  0%{
+    transform:scale(1.0);
+  }
+  100%{
+    transform:scale(1.01);
+    --webkit-box-shadow: 0px 2px 5px 2px;
+    -moz-box-shadow: 0px 2px 5px 2px;
+    box-shadow: 0px 2px 5px 2px;
+  }
+}
+
+@keyframes scaledown{
+  0%{
+    transform:scale(1.1);
+  }
+   100%{
+    transform:scale(1.0);
+  }
 }
