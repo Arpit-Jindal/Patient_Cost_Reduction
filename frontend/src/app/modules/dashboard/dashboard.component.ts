@@ -11,8 +11,7 @@ export class DashboardComponent implements OnInit {
   patient_id = "";
   patient_data;
 
-  constructor(private ref: ChangeDetectorRef, private http: HttpClient, private route: ActivatedRoute) {
-  }
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -20,7 +19,6 @@ export class DashboardComponent implements OnInit {
       this.http
         .get("http://127.0.0.1:5000/patient/" + this.patient_id)
         .subscribe((data) => {
-          console.log(data);
           this.patient_data = data;
         });
     });

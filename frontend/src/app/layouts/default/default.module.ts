@@ -13,17 +13,19 @@ import {
 } from "@angular/material";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DashboardService } from "src/app/modules/dashboard.service";
-import { StatisticsComponent } from "src/app/modules/statistics/statistics.component";
 import { HomepageComponent } from "../homepage/homepage.component";
 import { HttpClientModule } from "@angular/common/http";
-import { NgCircleProgressModule } from 'ng-circle-progress';
+import { NgCircleProgressModule } from "ng-circle-progress";
+import { AddPatientComponent } from "src/app/add-patient/add-patient.component";
+import { LoadingSpinnerComponent } from "src/app/shared/components/loading-spinner/loading-spinner.component";
 
 @NgModule({
   declarations: [
     DefaultComponent,
     DashboardComponent,
     HomepageComponent,
-    StatisticsComponent,
+    AddPatientComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       outerStrokeColor: "#78C000",
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
-    })
+    }),
   ],
   providers: [DashboardService],
 })

@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="top"></div>
+  <div class="bottom"></div>
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" class="center">
+    <h2>Please Sign In</h2>
+    <input
+      type="text"
+      placeholder="Username"
+      name="username"
+      ngModel
+      required
+    />
+    <input
+      type="password"
+      placeholder="Password"
+      name="password"
+      ngModel
+      required
+    />
+    <h4>&nbsp;</h4>
+    <button type="submit" mat-raised-button>SIGN IN</button>
+  </form>
+</div>

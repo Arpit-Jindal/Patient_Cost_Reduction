@@ -19,14 +19,14 @@
     routerLinkActive="list-item-active"
     class="patient_id"
     *ngFor="let id of patient_list"
-    [routerLink]="['/patient/', id]"
+    [routerLink]="['./patient/', id]"
     >#{{ id }}</a
   >
   <mat-divider></mat-divider>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/stats">
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="./add">
     <mat-icon>import_contacts</mat-icon>
-    Statistics
+    Add a Patient
   </a>
 
   <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">

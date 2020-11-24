@@ -1,61 +1,73 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import * as Highcharts from 'highcharts';
-import HC_exporting from 'highcharts/modules/exporting';
-
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectorRef,
+  OnChanges,
+} from "@angular/core";
+import * as Highcharts from "highcharts";
+import HC_exporting from "highcharts/modules/exporting";
 
 @Component({
-  selector: 'app-widget-area',
-  templateUrl: './area.component.html',
-  styleUrls: ['./area.component.scss']
+  selector: "app-widget-area",
+  templateUrl: "./area.component.html",
+  styleUrls: ["./area.component.scss"],
 })
-export class AreaComponent implements OnInit {
-
+export class AreaComponent implements OnInit, OnChanges {
   chartOptions: {};
   @Input() data: any = {};
-
   Highcharts = Highcharts;
 
-  constructor(private ref: ChangeDetectorRef) { }
+  graph_names = [
+    "Heart Rate",
+    "Blood Pressure (Diastolic)",
+    "Blood Pressure (Systolic)",
+    "Glucose Level",
+    "Cholestrol Level",
+    "Body Mass Index",
+  ];
+  constructor() {}
 
+  ngOnInit() {}
 
-  ngOnInit() {
+  ngOnChanges() {
     this.chartOptions = {
       chart: {
-        type: 'line'
-    },
-    title: {
-        text: this.data.name
-    },
+        type: "line",
+      },
+      title: {
+        text: this.data.name,
+      },
 
-    xAxis: {
-      title:{
-        text: 'Last 2 weeks',
-      }
-    },
-    
-    plotOptions: {
+      xAxis: {
+        title: {
+          text: "Last 2 weeks",
+        },
+      },
+
+      plotOptions: {
         line: {
-            dataLabels: {
-                enabled: false
-            },
-            enableMouseTracking: false
-        }
-    },
-    series: [{
-          name: 'Patient',
-          data: this.data.plots.Patient.slice(0,14)
-      }, {
-          name: 'Healthy Human',
-          data: this.data.plots.Normal.slice(0,14)
-      }]
+          dataLabels: {
+            enabled: false,
+          },
+          enableMouseTracking: false,
+        },
+      },
+      series: [
+        {
+          name: "Patient",
+          data: this.data.plots.Patient.slice(0, 14),
+        },
+        {
+          name: "Healthy Human",
+          data: this.data.plots.Normal.slice(0, 14),
+        },
+      ],
     };
     HC_exporting(Highcharts);
 
     setTimeout(() => {
-      window.dispatchEvent(
-        new Event('resize')
-      );
+      window.dispatchEvent(new Event("resize"));
     }, 300);
   }
-
 }

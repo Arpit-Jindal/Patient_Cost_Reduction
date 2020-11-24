@@ -279,6 +279,7 @@ def final_output(p_id):
         insurance+=250000
     reduce_cost=cost-(reduce*cost)/100
     reduce_cost = round(reduce_cost,2)
+    insurance = round(insurance,2)
     h_plot=plot_hr(m)
     s_plot=plot_sys(g)
     d_plot=plot_dias(l)
