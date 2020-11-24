@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request
-import final
+import obs
 import json
 import numpy as np
 from flask_cors import CORS, cross_origin
@@ -23,14 +23,14 @@ def hello():
 @app.route('/patient/<p_id>')
 @cross_origin(supports_credentials=True)
 def getPatientData(p_id):
-  output = json.dumps(final.final_output(p_id),cls=NpEncoder)
+  output = json.dumps(obs.final_output(p_id),cls=NpEncoder)
   return output
 
 @app.route('/', methods=['POST'])
 def submitID():
   p_id = request.form['patientID']
   # p_id='5b891358-1bb3-4bbf-b8a6-a73fbe58efe7'
-  output = final.final_output(p_id)
+  output = obs.final_output(p_id)
   return render_template('index.html', output = output)
 
 
