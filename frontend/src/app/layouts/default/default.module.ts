@@ -16,6 +16,7 @@ import { DashboardService } from "src/app/modules/dashboard.service";
 import { StatisticsComponent } from "src/app/modules/statistics/statistics.component";
 import { HomepageComponent } from "../homepage/homepage.component";
 import { HttpClientModule } from "@angular/common/http";
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,15 @@ import { HttpClientModule } from "@angular/common/http";
     MatCardModule,
     MatPaginatorModule,
     MatTableModule,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+    })
   ],
   providers: [DashboardService],
 })
