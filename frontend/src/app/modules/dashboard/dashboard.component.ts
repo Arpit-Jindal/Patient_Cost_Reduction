@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
       this.http
         .get("http://127.0.0.1:5000/patient/" + this.patient_id)
         .subscribe((data) => {
+          console.log(data)
           this.patient_data = data;
         });
     });

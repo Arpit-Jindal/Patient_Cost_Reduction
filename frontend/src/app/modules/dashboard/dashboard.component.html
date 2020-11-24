@@ -2,7 +2,9 @@
   <app-loading-spinner></app-loading-spinner>
 </div>
 <div *ngIf="patient_data">
-  <div>
+  <div fxLayout="row" fxLayoutAlign = "space-between center">
+
+  <div fxLayout="column" >
     <div class="ch3">Patient ID : {{ patient_id }}</div>
     <div fxLayout="row" fxLayoutAlign=" end">
       <div class="ch1">{{ patient_data.Name }}</div>
@@ -11,7 +13,17 @@
       </div>
     </div>
   </div>
+  <div class="heartbeat" >
+    <div fxLayout="column" fxLayoutAlign="space-between">
+      Average Heart Rate : {{patient_data.Heart_Rate}} 
+      <br>
+      Average Blood Pressure : {{patient_data.Blood_Pressure}}
+      <p>Computed over 20 days.</p>
+    </div>
+  </div>
 
+</div>
+  
   <br />
   <mat-divider></mat-divider>
   <br />
@@ -127,88 +139,104 @@
   <mat-divider></mat-divider>
   <br />
 
-  <mat-card>
-    <h4>Current Conditions</h4>
-    <div class="simple-tags">
-      <ul>
-        <li
-          style="background-color: #f0b27a"
-          *ngFor="let condition of patient_data.Current_Conditions"
-        >
-          {{ condition }}
-        </li>
-      </ul>
-    </div>
-    <!-- <h4>Allergies</h4>
-  <div class="simple-tags">
-    <ul>
-      <li
-        style="background-color: #f4d03f"
-        *ngFor="let allergy of patient_data.Allergies"
-      >
-        {{ allergy }}
-      </li>
-    </ul>
-  </div> -->
-    <h4>Current Medications</h4>
-    <div class="simple-tags">
-      <ul>
-        <li *ngFor="let medication of patient_data.Current_Medications">
-          {{ medication }}
-        </li>
-      </ul>
-    </div>
-  </mat-card>
+  
+  <div fxLayout="row" fxLayoutAlign="space-around start" >
+    <div class="rc2" fxLayout="column" fxLayoutAlign="space-between center" >
+        
+      <mat-card class="myCard" >
+        <h4>Current Conditions</h4>
+        <div class="simple-tags">
+          <ul>
+            <li
+              style="background-color: #f0b27a"
+              *ngFor="let condition of patient_data.Current_Conditions"
+            >
+              {{ condition }}
+            </li>
+          </ul>
+        </div>
+        <!-- <h4>Allergies</h4>
+      <div class="simple-tags">
+        <ul>
+          <li
+            style="background-color: #f4d03f"
+            *ngFor="let allergy of patient_data.Allergies"
+          >
+            {{ allergy }}
+          </li>
+        </ul>
+      </div> -->
+        <h4>Current Medications</h4>
+        <div class="simple-tags">
+          <ul>
+            <li *ngFor="let medication of patient_data.Current_Medications">
+              {{ medication }}
+            </li>
+          </ul>
+        </div>
+      </mat-card>
+      <mat-card class="myCard">
+        <h4>Careplan</h4>
+        <div class="simple-tags">
+          <ul>
+            <li
+              style="background-color: #34495e"
+              *ngFor="let careplan of patient_data.Care_plan"
+            >
+              {{ careplan }}
+            </li>
+          </ul>
+        </div>
+      </mat-card>
+    
+      </div>
+        <div class="rc2" fxLayout="column" fxLayoutAlign="space-between center" >
+          <mat-card class="myCard">
+            <h4>Suggested Medicines</h4>
+            <div>
+              <ul>
+                <li *ngFor="let disease of patient_data.Suggestions | keyvalue">
+                  {{ disease.key }}
+        
+                  <div class="simple-tags">
+                    <ul>
+                      <li
+                        style="background-color: #9aa1aa"
+                        *ngFor="let medicine of disease.value"
+                      >
+                        {{ medicine }}
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </mat-card>
+
+          <mat-card class="myCard" >
+            <h4>Suggested Pharmacy Store</h4>
+            <div>
+              <p>
+                Using this store - <b><i> {{patient_data.Vendor}} </i> </b>, patient can get medicines at discounted rates. 
+              </p>
+            </div>
+          </mat-card>
+          
+              
+
+  
+        </div>
+        
+
+
+  </div>
+
+  
+
+
 
   <br />
   <mat-divider></mat-divider>
   <br />
 
-  <mat-card>
-    <h4>Suggested Medicines</h4>
-    <div>
-      <ul>
-        <li *ngFor="let disease of patient_data.Suggestions | keyvalue">
-          {{ disease.key }}
-
-          <div class="simple-tags">
-            <ul>
-              <li
-                style="background-color: #9aa1aa"
-                *ngFor="let medicine of disease.value"
-              >
-                {{ medicine }}
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </mat-card>
-
-  <br />
-  <mat-divider></mat-divider>
-  <br />
-
-  <mat-card>
-    <h4>Careplan</h4>
-    <div class="simple-tags">
-      <ul>
-        <li
-          style="background-color: #34495e"
-          *ngFor="let careplan of patient_data.Care_plan"
-        >
-          {{ careplan }}
-        </li>
-      </ul>
-    </div>
-  </mat-card>
-
-  <br />
-  <br />
-
-  <mat-divider></mat-divider>
-
-  <br />
-  <br />
 </div>
