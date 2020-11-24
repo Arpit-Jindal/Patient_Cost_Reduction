@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 
@@ -11,7 +11,8 @@ export class DashboardComponent implements OnInit {
   patient_id = "";
   patient_data;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private ref: ChangeDetectorRef, private http: HttpClient, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -19,6 +20,7 @@ export class DashboardComponent implements OnInit {
       this.http
         .get("http://127.0.0.1:5000/patient/" + this.patient_id)
         .subscribe((data) => {
+          console.log(data);
           this.patient_data = data;
         });
     });

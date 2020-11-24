@@ -6,6 +6,7 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DefaultModule } from "./layouts/default/default.module";
 import { HttpClientModule } from "@angular/common/http";
+import { NgCircleProgressModule } from 'ng-circle-progress';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -13,6 +14,15 @@ import { HttpClientModule } from "@angular/common/http";
     AppRoutingModule,
     BrowserAnimationsModule,
     DefaultModule,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+    })
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

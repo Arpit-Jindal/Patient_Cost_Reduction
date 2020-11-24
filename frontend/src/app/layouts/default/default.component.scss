@@ -3,12 +3,14 @@
   flex-direction: column;
   height: 100%;
 }
+
 mat-drawer {
   width: 350px;
 }
 
 mat-drawer-container {
   height: 100%;
+  background-color :rgb(232,235,239);
 }
 
 mat-drawer-content {
