@@ -13,6 +13,7 @@ medicines=np.load('medicine_details.npy',allow_pickle='TRUE').item()
 patients=np.load('patient_details.npy',allow_pickle='TRUE').item()
 allergies=np.load('allergy_details.npy',allow_pickle='TRUE').item()
 conditions=np.load('condition_details.npy',allow_pickle='TRUE').item()
+payers=np.load('payer_ids.npy',allow_pickle='TRUE')
 med_db=med_db[['MED_DESC','BASE_COST','MED_REASON']]
 care_plans=care_plans[['DESCRIPTION','REASONDESCRIPTION']]
 ids=monitor['PATIENT']
@@ -158,6 +159,7 @@ def get_medicines(conditions,medicines):
     l=(len(medicines))
     x=len(conditions)
     suggestions={}
+    v=random.choice(payers)
     for condition in conditions:
         record=med_db[med_db['MED_REASON'] == condition].sort_values('BASE_COST')
         if(len(record)==0):
@@ -173,7 +175,7 @@ def get_medicines(conditions,medicines):
         reduce=float(reduce)
         h=(random.randint(1,100))/100
         reduce+=h
-    return [suggestions,reduce]
+    return [suggestions,reduce,v]
 def careplan(conditions):
     suggestions=[]
     for condition in conditions:
@@ -196,37 +198,37 @@ def getname(X):
 def plot_hr(H):
     random.seed(1)
     X=np.random.normal(H, random.randint(1,5), size=200)
-    Y=np.random.normal(72.0, 3, size=200)
+    Y=np.random.normal(72.0, 1, size=200)
     Z={"Patient":X,"Normal":Y}
     return Z
 def plot_sys(H):
     random.seed(1)
     X=np.random.normal(H, random.randint(1,6), size=200)
-    Y=np.random.normal(120, 3, size=200)
+    Y=np.random.normal(120, 1, size=200)
     Z={"Patient":X,"Normal":Y}
     return Z
 def plot_dias(H):
     random.seed(1)
     X=np.random.normal(H, random.randint(1,6), size=200)
-    Y=np.random.normal(80, 3, size=200)
+    Y=np.random.normal(80, 1, size=200)
     Z={"Patient":X,"Normal":Y}
     return Z
 def plot_chol(H):
     random.seed(1)
     X=np.random.normal(H, random.randint(1,6), size=200)
-    Y=np.random.normal(90, 3, size=200)
+    Y=np.random.normal(90, 1, size=200)
     Z={"Patient":X,"Normal":Y}
     return Z
 def plot_bmi(H):
     random.seed(1)
     X=np.random.normal(H, random.randint(1,6), size=200)
-    Y=np.random.normal(24, 3, size=200)
+    Y=np.random.normal(24, 1, size=200)
     Z={"Patient":X,"Normal":Y}
     return Z
 def plot_gluc(H):
     random.seed(1)
     X=np.random.normal(H, random.randint(1,6), size=200)
-    Y=np.random.normal(90, 3, size=200)
+    Y=np.random.normal(90, 1, size=200)
     Z={"Patient":X,"Normal":Y}
     return Z
 def calculate_insurance(age,obesity,smoking,med,cond):
@@ -264,7 +266,7 @@ def final_output(p_id):
     insurance=round(insurance,2)
     r=calculate_risk(d,a,h,f,g,e,b,len(j))
     r=round(r,2)
-    [suggestions,reduce]=get_medicines(j,i)
+    [suggestions,reduce,v]=get_medicines(j,i)
     out={}
     z="Female"
     if(d==1):
@@ -298,6 +300,7 @@ def final_output(p_id):
     out["Current_Conditions"]=j
     out["Predicted_Medicine_Cost"]=reduce_cost
     out["Suggestions"]=suggestions
+    out["Vendor"]=v
     out["Reduce_amount"]=reduce
     out["Allergies"]=AL
     out["Care_plan"]=c_p
