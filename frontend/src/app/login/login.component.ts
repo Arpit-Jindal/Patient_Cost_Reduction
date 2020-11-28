@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     const username = form.value.username;
     const password = form.value.password;
 
-    if (username == "admin" && password == "admin") {
+    if (username == "admin" && password == "admin123@") {
       this.router.navigate(["dashboard"]);
     } else {
       alert("Incorrect Credentials");

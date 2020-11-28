@@ -249,7 +249,7 @@ def admission(risk,med_c,conditions,amount):
         return random.choice(ad)
     if(risk>85):
         adm1=risk+random.randint(1,5)+(random.randint(1,conditions)/100)
-        adm2=adm2-risk-random.randint(1,5)+(random.randint(1,conditions)/100) 
+        adm2=risk-random.randint(1,5)+(random.randint(1,conditions)/100) 
         ad.append(adm1)
         ad.append(adm2)
         return random.choice(ad)
@@ -296,6 +296,7 @@ def final_output(p_id):
     g=int(sys_st(X))
     h=0
     [i,cost]=med_count(medicines[p_id])
+    cost=round(cost,2)
     j=condition_count(conditions[p_id])
     l=int(dias_st(X))
     m=heart_rate(X)
@@ -321,7 +322,9 @@ def final_output(p_id):
         insurance=40000+(random.randint(1,100)/100)
     if(r>90):
         insurance+=250000
+    insurance=round(insurance,2)
     reduce_cost=cost-(reduce*cost)/100
+    reduce_cost=round(reduce_cost,2)
     diet_plan=rec_diet(j,diet)
     h_plot=plot_hr(m)
     s_plot=plot_sys(g)
@@ -329,6 +332,7 @@ def final_output(p_id):
     g_plot=plot_gluc(e)
     c_plot=plot_chol(f)
     b_plot=plot_bmi(b)
+    reduce = round(reduce,2)
     adm=admission(r,len(i),len(j),insurance)
     adm=round(adm,2)
     prov=provider(len(j),ins_prov)
