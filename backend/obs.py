@@ -17,6 +17,8 @@ payers=np.load('payer_ids.npy',allow_pickle='TRUE')
 med_db=med_db[['MED_DESC','BASE_COST','MED_REASON']]
 care_plans=care_plans[['DESCRIPTION','REASONDESCRIPTION']]
 ids=monitor['PATIENT']
+diet=pd.read_csv('diet.csv')
+diets=diet["DIETS"]
 
 #LinearRegression
 age_coef=261.83801848327676
@@ -25,7 +27,6 @@ smoking_coef=23851.06705386572
 medicine_coeff=700.13429
 conditions_coeff=5021.21412412
 avg_intercept=-4107.42213325581
-
 #For logistic regression
 const=-9.126396
 bmi_coeff=0.05
@@ -36,6 +37,10 @@ totChol=0.002271
 sysBP=0.017377
 glucose=0.007588
 past_disease=0.013
+risk_coeff=0.0009
+med_coeff=0.0005
+cond_coeff=0.0008
+amount_coeff=0.00000001
 
 def smoke(X):
     for x in X['SMOKING']:
@@ -231,6 +236,38 @@ def plot_gluc(H):
     Y=np.random.normal(90, 1, size=200)
     Z={"Patient":X,"Normal":Y}
     return Z
+def admission(risk,med_c,conditions,amount):
+    ad=[] 
+    random.seed(5)
+    if(risk<85 and risk >10):
+        adm1=risk+random.randint(1,10)+(random.randint(1,conditions)/100)
+        adm2=risk-random.randint(1,10)+(random.randint(1,conditions)/100)
+        ad.append(adm1)
+        ad.append(adm2)
+        return random.choice(ad)
+    if(risk>85):
+        adm1=risk+random.randint(1,5)+(random.randint(1,conditions)/100)
+        adm2=adm2-risk-random.randint(1,5)+(random.randint(1,conditions)/100) 
+        ad.append(adm1)
+        ad.append(adm2)
+        return random.choice(ad)
+    if(risk>90):
+        adm1=risk-random.randint(1,5)+(random.randint(1,conditions)/100)
+        return adm1
+    if(risk<10):
+        adm1=risk+random.randint(1,4)+(random.randint(1,conditions)/100)
+        return adm1
+def rec_diet(cond,diet):
+    z=len(cond)
+    z+=random.randint(1,4)
+    random.seed(2)
+    random.shuffle(diet)
+    return diet[:z]
+def provider(l,prov):
+    random.seed(l)
+    random.shuffle(prov)
+    return prov[:3]
+        
 def calculate_insurance(age,obesity,smoking,med,cond):
     y=(age_coef*age)+(obesity_coef*obesity)+(smoking_coef*smoking)+avg_intercept+medicine_coeff*med+conditions_coeff*cond
     return y
@@ -239,9 +276,13 @@ def calculate_risk(sex,age_val,cig,choles,sysB,gl,bmi,cond):
     s=const+sex_male*sex+age*age_val+cigsPerDay*cig+totChol*choles+sysBP*sysB+glucose*gl+bmi_coeff*bmi+past_disease*cond
     e=np.exp(s)
     return (e/(1+e))*100
-    
+
+
 
 def final_output(p_id):
+    diet=np.array(diets)
+    ins_prov=np.array(insurance_provider)
+    ins_prov=ins_prov[:len(ins_prov)-2]
     X=monitor[monitor['PATIENT'] == p_id]
     Y=patients[p_id]
     a=agecal(Y)
@@ -253,7 +294,6 @@ def final_output(p_id):
     g=int(sys_st(X))
     h=0
     [i,cost]=med_count(medicines[p_id])
-    cost = round(cost,2)
     j=condition_count(conditions[p_id])
     l=int(dias_st(X))
     m=heart_rate(X)
@@ -263,7 +303,7 @@ def final_output(p_id):
     if(c is not 0):
         h=random.randint(1,20)
     insurance=calculate_insurance(a,b,c,len(i),len(j))
-    insurance=round(insurance,2)
+    insurance=round(insurance,3)
     r=calculate_risk(d,a,h,f,g,e,b,len(j))
     r=round(r,2)
     [suggestions,reduce,v]=get_medicines(j,i)
@@ -280,14 +320,16 @@ def final_output(p_id):
     if(r>90):
         insurance+=250000
     reduce_cost=cost-(reduce*cost)/100
-    reduce_cost = round(reduce_cost,2)
-    insurance = round(insurance,2)
+    diet_plan=rec_diet(j,diet)
     h_plot=plot_hr(m)
     s_plot=plot_sys(g)
     d_plot=plot_dias(l)
     g_plot=plot_gluc(e)
     c_plot=plot_chol(f)
     b_plot=plot_bmi(b)
+    adm=admission(r,len(i),len(j),insurance)
+    adm=round(adm,2)
+    prov=provider(len(j),ins_prov)
     out["Name"]=name
     out["Sex"]=z
     out["Age"]=a
@@ -298,10 +340,10 @@ def final_output(p_id):
     out["Medicine_Cost"]=cost
     out["Current_Medications"]=i
     out["Current_Conditions"]=j
-    out["Predicted_Medicine_Cost"]=reduce_cost
+    out["Reduced_cost"]=reduce_cost
     out["Suggestions"]=suggestions
-    out["Vendor"]=v
     out["Reduce_amount"]=reduce
+    out["Vendor"]=v
     out["Allergies"]=AL
     out["Care_plan"]=c_p
     out["Heart_Plot"]=h_plot
@@ -310,8 +352,11 @@ def final_output(p_id):
     out["Cholestrol_Plot"]=c_plot
     out["Glucose_Plot"]=g_plot
     out["BMI_Plot"]=b_plot
+    out["Admission"]=adm
+    out["Diet_Plan"]=diet_plan
+    out["Health Insurance Providers"]=prov
+    
     return out
-
 
 # p_id='5b891358-1bb3-4bbf-b8a6-a73fbe58efe7'
 
