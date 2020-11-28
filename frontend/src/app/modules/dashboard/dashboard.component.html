@@ -34,10 +34,11 @@
     fxLayoutAlign="left center"
     fxLayoutGap="50px"
   >
-    <div>
+    <div fxLayout="row">
+      <div fxLayout="column" fxLayoutAlign="space-around center">
       <circle-progress
         [percent]="patient_data.Risk"
-        [radius]="100"
+        [radius]="95"
         [outerStrokeWidth]="15"
         [innerStrokeWidth]="10"
         [outerStrokeColor]="'#2B5878'"
@@ -50,8 +51,28 @@
         [subtitle]="'RISK'"
         [animateSubtitle]="true"
       ></circle-progress>
+      <div style="width:100%; text-align: center; color: #484476;"> Health Risk Percentage</div>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+      <circle-progress
+        [percent]="patient_data.Admission"
+        [radius]="95"
+        [outerStrokeWidth]="15"
+        [innerStrokeWidth]="10"
+        [outerStrokeColor]="'#2B5878'"
+        [innerStrokeColor]="'#484476'"
+        [animation]="true"
+        [animationDuration]="650"
+        [unitsFontSize]="40"
+        [titleFontSize]="40"
+        [subtitleFontSize]="35"
+        [subtitle]="'H.A.P'"
+        [animateSubtitle]="true"
+      ></circle-progress>
+        <div style="width:100%; text-align: center; color:#484476"> Hospital Admission Possibility</div>
     </div>
-
+    </div>
+    
     <div class="content">
       <div
         class="block x1"
@@ -59,7 +80,7 @@
         fxLayoutAlign="space-evenly center"
       >
         <div class="amount">${{ patient_data.Insurance }}</div>
-        <p>Predicted Healthcare Expenses</p>
+        <p style="text-align: center;">Predicted Healthcare Expenses</p>
       </div>
       <div class="block x2" fxLayout="column">
         <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -71,7 +92,7 @@
             <div class="amount">${{ patient_data.Medicine_Cost }}</div>
             <p>Actual Medicine Cost</p>
           </div>
-          <p>---></p>
+          <p>=></p>
           <div
             class="innerPrice"
             fxLayout="column"
@@ -176,6 +197,18 @@
         </div>
       </mat-card>
       <mat-card class="myCard">
+        <h4>Diet Recommendations</h4>
+        <div class="simple-tags">
+          <ul>
+            <li
+              style="background-color: #528b90"
+              *ngFor="let diet of patient_data.Diet_Plan"
+            >
+              {{ diet }}
+            </li>
+          </ul>
+        </div>
+
         <h4>Careplan</h4>
         <div class="simple-tags">
           <ul>
@@ -220,6 +253,18 @@
                 Using this store - <b><i> {{patient_data.Vendor}} </i> </b>, patient can get medicines at discounted rates. 
               </p>
             </div>
+            <h4>Health Insuarance Providers</h4>
+        <div class="simple-tags">
+          <ul>
+            <li
+              style="background-color: #009532"
+              *ngFor="let condition of patient_data['Health Insurance Providers']"
+            >
+              {{ condition }}
+            </li>
+          </ul>
+        </div>
+
           </mat-card>
           
               
