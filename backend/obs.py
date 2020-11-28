@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 monitor=pd.read_csv('out1.csv')
 med_db=pd.read_csv('medications.csv')
 care_plans=pd.read_csv('careplans.csv')
+insurance_provider=pd.read_csv('payers.csv')
+insurance_provider=insurance_provider["NAME"]
 medicines=np.load('medicine_details.npy',allow_pickle='TRUE').item()
 patients=np.load('patient_details.npy',allow_pickle='TRUE').item()
 allergies=np.load('allergy_details.npy',allow_pickle='TRUE').item()
