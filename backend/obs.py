@@ -247,7 +247,7 @@ def admission(risk,med_c,conditions,amount):
         ad.append(adm1)
         ad.append(adm2)
         return random.choice(ad)
-    if(risk>85):
+    if(risk>85 and risk<90):
         adm1=risk+random.randint(1,5)+(random.randint(1,conditions)/100)
         adm2=risk-random.randint(1,5)+(random.randint(1,conditions)/100) 
         ad.append(adm1)
