@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 
@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class DashboardComponent implements OnInit {
   patient_id = "";
-  patient_data;
+  patient_data: any;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
