@@ -13,7 +13,7 @@ Hi! Our concept will help you analyse the health of the patient and understand t
 
 
 # Impact
-![](./misc/impact.png)
+![](./misc/imp.png)
 
 
 # TechStack :computer:
